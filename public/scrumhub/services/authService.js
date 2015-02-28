@@ -9,8 +9,15 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootSco
         };
 
     me = {
+        /**
+         * authentication state
+         * @type {object}
+         */
         authentication: authentication,
 
+        /**
+         * Läs in användare från localstorage om det finns och notifiera att authentication har ändrats.
+         */
         fillAuthData: function () {
             var authData = localStorageService.get('authorizationData');
             if (authData)
@@ -23,6 +30,11 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootSco
             }
         },
 
+        /**
+         * Logga in användare mot github spara token och användare i localstorage.
+         * @param  {object} loginData
+         * @return {function}           promise
+         */
         login: function (loginData) {
             var authToken = 'Basic ' + window.btoa(unescape(encodeURIComponent(loginData.userName + ':' + loginData.password))),
                 deferred = $q.defer();
@@ -42,6 +54,9 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootSco
             return deferred.promise;
         },
 
+        /**
+         * Logga ut användare, radera localstorage och återställ användare.
+         */
         logOut: function () {
             localStorageService.remove('authorizationData');
             $http.defaults.headers.common.Authorization = '';
