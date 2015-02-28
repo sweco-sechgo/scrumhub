@@ -1,9 +1,11 @@
-scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootScope', function ($http, $q, localStorageService, $rootScope) {
     var serviceBase = 'https://api.github.com/users/',
         me,
         authentication = {
             isAuth: false,
-            userName : ""
+            userName : "",
+            avatar: "",
+            user: null
         };
 
     me = {
@@ -15,6 +17,9 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
             {
                 authentication.isAuth = true;
                 authentication.userName = authData.userName;
+                authentication.avatar = authData.avatar;
+                $http.defaults.headers.common.Authorization = authData.token;
+                $rootScope.$broadcast('authenticationChanged', authentication);
             }
         },
 
@@ -22,12 +27,15 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
             var authToken = 'Basic ' + window.btoa(unescape(encodeURIComponent(loginData.userName + ':' + loginData.password))),
                 deferred = $q.defer();
             $http.defaults.headers.common.Authorization = authToken;
-             $http.get(serviceBase + loginData.userName).success(function (response) {
-                localStorageService.set('authorizationData', { token: authToken, userName: loginData.userName });
+            $http.get(serviceBase + loginData.userName).success(function (response) {
+                localStorageService.set('authorizationData', { token: authToken, userName: loginData.userName, avatar: response.avatar_url, user: response });
+                authentication.avatar = response.avatar_url;
                 authentication.isAuth = true;
                 authentication.userName = loginData.userName;
+                authentication.user = response;
+                $broadcast('authenticationChanged', authentication);
                 deferred.resolve(response);
-             }).error(function (err, status) {
+            }).error(function (err, status) {
                 me.logOut();
                 deferred.reject(err);
             });
@@ -39,6 +47,9 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
             $http.defaults.headers.common.Authorization = '';
             authentication.isAuth = false;
             authentication.userName = "";
+            authentication.avatar = "";
+            authentication.user = null;
+            $rootScope.$broadcast('authenticationChanged', authentication);
         }
     };
 

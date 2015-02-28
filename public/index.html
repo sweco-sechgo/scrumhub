@@ -21,7 +21,7 @@
     <script type="text/javascript" src="scrumhub/services/authService.js"></script>
 </head>
 <body>
-     <nav class="navbar navbar-inverse navbar-static-top">
+     <nav class="navbar navbar-default navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" ata-target="#toolbartop" data-toggle="collapse">
@@ -36,7 +36,8 @@
             </div>
             <div id="toolbartop" class="collapse navbar-collapse" >
                 <form class="navbar-form navbar-right" role="form" ng-controller="logoutController" ng-submit="logout()" ng-show="authentication.isAuth">
-                    <button type="button" class="btn btn-default">
+                    <img ng-src="{{authentication.avatar}}" alt="avatar" class="img-rounded" style="height: 32px;">
+                    <button type="submit" class="btn btn-default">
                        <i class="fa fa-sign-out"></i> {{authentication.userName}}
                     </button>
                 </form>

@@ -5,3 +5,28 @@ body {
 .container-center {
     text-align: center !important;
 }
+
+.navbar-default {
+    background: transparent;
+    border: none;
+}
+
+.navbar-default .navbar-brand {
+    color: #303030;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
+}
+
+.navbar-default .navbar-brand:active {
+    color: #303030;
+}
+
+.well {
+    background: rgba(255, 255, 255, 0.34);
+}
+
+.jumbotron {
+    background: rgba(255, 255, 255, 0.34)
+}

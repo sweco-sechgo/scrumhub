@@ -1,3 +1,3 @@
-scrumApp.controller('HomeController',['$scope', function ($scope) {
+scrumApp.controller('HomeController', ['$scope',  'authService', '$location',  function ($scope,  authService, $location) {
 
 }]);
