@@ -1,5 +1,5 @@
 scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
-    var serviceBase = '',
+    var serviceBase = 'https://api.github.com/users/',
         me,
         authentication = {
             isAuth: false,
@@ -18,25 +18,18 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
             }
         },
         login: function (loginData) {
-            alert(loginData.userName);
-            /*var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password,
+            var authToken = 'Basic ' + window.btoa(unescape(encodeURIComponent(loginData.userName + ':' + loginData.password))),
                 deferred = $q.defer();
-
-            $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
-                localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
-
+             $http.post(serviceBase + loginData.userName, data, { headers: { 'Authorization': authToken } }).success(function (response) {
+                localStorageService.set('authorizationData', { token: authToken, userName: loginData.userName });
                 authentication.isAuth = true;
                 authentication.userName = loginData.userName;
-
                 deferred.resolve(response);
-
-            }).error(function (err, status) {
+             }).error(function (err, status) {
                 me.logOut();
                 deferred.reject(err);
             });
-
-            return deferred.promise;*/
+            return deferred.promise;
         },
         logOut: function () {
             localStorageService.remove('authorizationData');

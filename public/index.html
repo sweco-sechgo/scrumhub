@@ -16,6 +16,7 @@
 
     <script type="text/javascript" src="scrumhub/app.js"></script>
     <script type="text/javascript" src="scrumhub/controllers/loginController.js"></script>
+    <script type="text/javascript" src="scrumhub/controllers/logoutController.js"></script>
     <script type="text/javascript" src="scrumhub/controllers/homeController.js"></script>
     <script type="text/javascript" src="scrumhub/services/authService.js"></script>
 </head>
@@ -34,6 +35,11 @@
                 </a>
             </div>
             <div id="toolbartop" class="collapse navbar-collapse" >
+                <form class="navbar-form navbar-right" role="form" ng-controller="logoutController" ng-submit="logout()" ng-show="authentication.isAuth">
+                    <button type="button" class="btn btn-default">
+                       <i class="fa fa-sign-out"></i> {{authentication.userName}}
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
