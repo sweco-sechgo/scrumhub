@@ -17,10 +17,12 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
                 authentication.userName = authData.userName;
             }
         },
+
         login: function (loginData) {
             var authToken = 'Basic ' + window.btoa(unescape(encodeURIComponent(loginData.userName + ':' + loginData.password))),
                 deferred = $q.defer();
-             $http.post(serviceBase + loginData.userName, data, { headers: { 'Authorization': authToken } }).success(function (response) {
+            $http.defaults.headers.common.Authorization = authToken;
+             $http.get(serviceBase + loginData.userName).success(function (response) {
                 localStorageService.set('authorizationData', { token: authToken, userName: loginData.userName });
                 authentication.isAuth = true;
                 authentication.userName = loginData.userName;
@@ -31,8 +33,10 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', function 
             });
             return deferred.promise;
         },
+
         logOut: function () {
             localStorageService.remove('authorizationData');
+            $http.defaults.headers.common.Authorization = '';
             authentication.isAuth = false;
             authentication.userName = "";
         }
