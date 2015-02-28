@@ -45,7 +45,7 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootSco
                 authentication.isAuth = true;
                 authentication.userName = loginData.userName;
                 authentication.user = response;
-                $broadcast('authenticationChanged', authentication);
+                $rootScope.$broadcast('authenticationChanged', authentication);
                 deferred.resolve(response);
             }).error(function (err, status) {
                 me.logOut();
