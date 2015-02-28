@@ -1,0 +1,24 @@
+{
+  "name": "scrumhub",
+  "version": "0.1.0",
+  "description": "scrumhub",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sweco-sechgo/scrumhub.git"
+  },
+  "keywords": [
+    "scrum",
+    "plannering"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sweco-sechgo/scrumhub/issues"
+  },
+  "dependencies": {
+    "github-api": "~0.10.3",
+    "express": "~4.12.0",
+    "body-parser": "~1.12.0",
+    "express-json": "~1.0.0"
+  }
+}

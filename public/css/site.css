@@ -1,0 +1,7 @@
+body {
+    background: url(../images/background.jpg);
+}
+
+.container-center {
+    text-align: center !important;
+}
