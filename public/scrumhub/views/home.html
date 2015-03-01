@@ -7,3 +7,20 @@
         </a>
     </p>
 </div>
+
+<div class="well" ng-show="authentication.isAuth">
+    <h2>Mina projekt</h2>
+    <ul class="list-group" ng-repeat="repo in myrepos track by repo.id">
+        <li class="list-group-item">
+            <a href="#">{{repo.name}}</a>
+        </li>
+    </ul>
+    <h2>Organisationer</h2>
+    <ul class="list-group" ng-repeat="org in organizations track by org.id">
+        <li class="list-group-item">
+            <a href="#">
+                <img ng-src="{{org.avatar}}" alt="avatar" class="img-rounded" style="height: 32px;"> {{org.name}}
+            </a>
+        </li>
+    </ul>
+</div>

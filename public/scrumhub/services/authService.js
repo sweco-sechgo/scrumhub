@@ -26,6 +26,7 @@ scrumApp.factory('authService', ['$http', '$q', 'localStorageService', '$rootSco
                 authentication.userName = authData.userName;
                 authentication.avatar = authData.avatar;
                 $http.defaults.headers.common.Authorization = authData.token;
+                authentication.user = authData.user;
                 $rootScope.$broadcast('authenticationChanged', authentication);
             }
         },
