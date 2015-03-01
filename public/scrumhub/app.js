@@ -4,7 +4,8 @@ var scrumApp = angular.module('scrumApp', [
 ]);
 
 scrumApp.config(function ($routeProvider, localStorageServiceProvider) {
-   $routeProvider.when("/", {
+
+    $routeProvider.when("/", {
         controller: "HomeController",
         templateUrl: "scrumhub/views/home.html"
     });
