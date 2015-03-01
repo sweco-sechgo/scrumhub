@@ -1,7 +1,7 @@
-scrumApp.factory('repositoryService', ['$http', '$q', function ($http, $q) {
+scrumApp.factory('gitHubService', ['$http', '$q', function ($http, $q) {
 
     return {
-        load: function (url) {
+        get: function (url) {
             var deferred = $q.defer();
 
             $http.get(url).success(function (response) {

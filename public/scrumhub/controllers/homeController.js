@@ -1,5 +1,5 @@
-scrumApp.controller('HomeController', ['$scope',  'authService', 'repositoryService', '$location',
-                        function ($scope,  authService, repositoryService, $location) {
+scrumApp.controller('HomeController', ['$scope',  'authService', 'gitHubService', '$location',
+                        function ($scope,  authService, gitHubService, $location) {
     $scope.authentication = authService.authentication;
     $scope.myrepos = [];
     $scope.organizations = [];
@@ -7,7 +7,7 @@ scrumApp.controller('HomeController', ['$scope',  'authService', 'repositoryServ
         if(authService.authentication.isAuth) {
             console.log(authService.authentication.user.repos_url);
             console.log(authService.authentication.user.organizations_url);
-            repositoryService.load(authService.authentication.user.repos_url).then(function (repos) {
+            gitHubService.get(authService.authentication.user.repos_url).then(function (repos) {
                 $scope.myrepos = repos.map(function (repo) {
                     return {
                         id: repo.id,
@@ -19,7 +19,7 @@ scrumApp.controller('HomeController', ['$scope',  'authService', 'repositoryServ
                 $scope.myrepos = [];
             });
 
-            repositoryService.load(authService.authentication.user.organizations_url).then(function (orgs) {
+            gitHubService.get(authService.authentication.user.organizations_url).then(function (orgs) {
                 $scope.organizations = orgs.map(function (org) {
                     return {
                         id: org.id,
